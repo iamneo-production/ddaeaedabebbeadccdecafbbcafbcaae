@@ -22,7 +22,18 @@ public class MyAppConfig {
         return dataSource;
     }
 
-  
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        return new JdbcTemplate(dataSource());
+    }
+
+    @Bean
+    public EmpDao empDao() {
+        EmpDao empDao = new EmpDao();
+        empDao.setTemplate(jdbcTemplate());
+        return empDao;
+    }
+
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
